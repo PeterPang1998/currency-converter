@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <title>Currency Converter</title>
+    <style>
+        *{
+            border-radius: 0;
+        }
+        body{
+            background-color: #e7f7e9;
+            font-family: 'Popins',sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>From</label>
+                    <select v-model='from' class="form-control">
+                        <option :value="symbols.code" v-for="symbols in formattedSymbols">
+                            {{symbols.description}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label>To</label>
+                    <select v-model='to' class="form-control">
+                        <option :value="symbols.code" v-for="symbols in formattedSymbols">
+                            {{symbols.description}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <input v-model='amount' type="text" placeholder="Amount" class="form-control my-5">
+                <div class="text-center"></div>
+                <button  :disabled="disabled" @click="convertCurrencies()" class="btn-lg btn-primary">
+                    {{loading? 'converting..':'convert'}}
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center display-4 mt-5">
+                    {{calculateResult}}
+                </h1>
+            </div>
+        </div>
+        <div>
+            <footer class="text-center display-10 mt-5" >
+                current time: {{timestamp}}
+            </footer>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
